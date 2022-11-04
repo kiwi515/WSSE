@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WSSE.Util
+﻿namespace WSSE.Util
 {
-    public static class EndianUtil
+    internal static class EndianUtil
     {
         /// <summary>
         /// Endianness type
         /// </summary>
-        public enum EndianKind
+        public enum Kind
         {
             Little,
             Big
@@ -21,11 +15,11 @@ namespace WSSE.Util
         /// Get endianness of system
         /// </summary>
         /// <returns>EndianKind enum value</returns>
-        public static EndianKind GetSystemEndian()
+        public static Kind GetSystemEndian()
         {
             return BitConverter.IsLittleEndian
-                ? EndianKind.Little
-                : EndianKind.Big;
+                ? Kind.Little
+                : Kind.Big;
         }
 
         /// <summary>
@@ -36,7 +30,7 @@ namespace WSSE.Util
         /// <returns>Value represented in little endian</returns>
         public static T ToLittleEndian<T>(T val) where T : unmanaged
         {
-            return GetSystemEndian() == EndianKind.Little ? val : SwapEndian(val);
+            return GetSystemEndian() == Kind.Little ? val : SwapEndian(val);
         }
 
         /// <summary>
@@ -47,7 +41,7 @@ namespace WSSE.Util
         /// <returns>Value represented in big endian</returns>
         public static T ToBigEndian<T>(T val) where T : unmanaged
         {
-            return GetSystemEndian() == EndianKind.Big ? val : SwapEndian(val);
+            return GetSystemEndian() == Kind.Big ? val : SwapEndian(val);
         }
 
         /// <summary>
@@ -106,7 +100,7 @@ namespace WSSE.Util
                         BitConverter.GetBytes((Double)(object)val).Reverse().ToArray()
                         );
                 default:
-                    throw new ArgumentException("Primitive type supplied is not supported");
+                    throw new ArgumentException("Primitive type is not supported");
             }
         }
     }
