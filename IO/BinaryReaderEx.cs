@@ -8,25 +8,8 @@ namespace WSSE.IO
     /// </summary>
     internal class BinaryReaderEx : BinaryReader
     {
-        #region Fields
-
         // Reader endianness
         private EndianUtil.Kind m_Endian;
-
-        #endregion
-
-        #region Properties
-
-        // Reader endianness
-        public EndianUtil.Kind Endian
-        {
-            get { return m_Endian; }
-            set { m_Endian = value; }
-        }
-
-        #endregion
-
-        #region Constructors
 
         public BinaryReaderEx(string path, EndianUtil.Kind endian)
             : base(File.Open(path, FileMode.Open))
@@ -47,10 +30,6 @@ namespace WSSE.IO
         {
             m_Endian = endian;
         }
-
-        #endregion
-
-        #region Methods
 
         /// <summary>
         /// Read signed 8-bit integer from the stream
@@ -153,7 +132,5 @@ namespace WSSE.IO
                 ? EndianUtil.ToBigEndian(val)
                 : EndianUtil.ToLittleEndian(val);
         }
-
-        #endregion
     }
 }
